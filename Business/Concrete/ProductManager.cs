@@ -23,35 +23,35 @@ namespace Business.Concrete
         {
             _productDal.Add(product);
 
-            return new SuccesResult(Messages.ProductAdded);
+            return new SuccessResult(Messages.ProductAdded);
         }
 
         public IResult Delete(Product product)
         {
             _productDal.Delete(product);
 
-            return new SuccesResult(Messages.ProductDeteled);
+            return new SuccessResult(Messages.ProductDeteled);
         }
         public IResult Update(Product product)
         {
             _productDal.Update(product);
 
-            return new SuccesResult(Messages.ProductUpdated);
+            return new SuccessResult(Messages.ProductUpdated);
         }
 
         public IDataResult<Product> GetById(int productId)
         {
-            return new SuccesDataResult<Product>(_productDal.Get(x=>x.ProductId == productId), Messages.ProductByIdListed);
+            return new SuccessDataResult<Product>(_productDal.Get(x=>x.ProductId == productId), Messages.ProductByIdListed);
         }
 
         public IDataResult<List<Product>> GetList()
         {
-            return new SuccesDataResult<List<Product>>(_productDal.GetList().ToList(), Messages.ProductsListed);
+            return new SuccessDataResult<List<Product>>(_productDal.GetList().ToList(), Messages.ProductsListed);
         }
 
         public IDataResult<List<Product>> GetListByCategory(int categoryId)
         {
-            return new SuccesDataResult<List<Product>>(_productDal.GetList(x => x.CategoryId == categoryId).ToList(), Messages.ProductsByCategoryListed);
+            return new SuccessDataResult<List<Product>>(_productDal.GetList(x => x.CategoryId == categoryId).ToList(), Messages.ProductsByCategoryListed);
         }
     }
 }

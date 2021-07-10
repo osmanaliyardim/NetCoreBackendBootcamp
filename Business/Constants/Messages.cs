@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -29,5 +30,13 @@ namespace Business.Constants
         public static string UsersListed = "Tüm kullanıcılar başarıyla listelendi!";
         public static string UserByClaimListed = "Kullanıcının rolleri başarıyla listelendi!";
         public static string UserByMailListed = "Kullanıcı başarıyla listelendi!";
+        
+        //Authentication
+        public static string UserNotFound = "Kullanıcı bulunamadı!";
+        public static string PasswordInvalid = "Geçersiz şifre!";
+        public static string LoginSuccessful = "Giriş başarılı!";
+        public static string UserAlreadyExist = "Bu email zaten kayıtlı!";
+        public static string UserRegistered = "Kayıt başarılı!";
+        public static string AccessTokenCreated = "Access Token başarıyla oluşturuldu!";
     }
 }

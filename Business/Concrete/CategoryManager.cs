@@ -22,31 +22,31 @@ namespace Business.Concrete
         {
             _categoryDal.Add(category);
 
-            return new SuccesResult(Messages.CategoryAdded);
+            return new SuccessResult(Messages.CategoryAdded);
         }
 
         public IResult Delete(Category category)
         {
             _categoryDal.Delete(category);
 
-            return new SuccesResult(Messages.CategoryDeteled);
+            return new SuccessResult(Messages.CategoryDeteled);
         }
 
         public IResult Update(Category category)
         {
             _categoryDal.Update(category);
 
-            return new SuccesResult(Messages.CategoryUpdated);
+            return new SuccessResult(Messages.CategoryUpdated);
         }
 
         public IDataResult<Category> GetById(int categoryId)
         {
-            return new SuccesDataResult<Category>(_categoryDal.Get(x=>x.CategoryId == categoryId), Messages.CategoryByIdListed);
+            return new SuccessDataResult<Category>(_categoryDal.Get(x=>x.CategoryId == categoryId), Messages.CategoryByIdListed);
         }
 
         public IDataResult<List<Category>> GetList()
         {
-            return new SuccesDataResult<List<Category>>(_categoryDal.GetList().ToList(), Messages.CategoriesListed);
+            return new SuccessDataResult<List<Category>>(_categoryDal.GetList().ToList(), Messages.CategoriesListed);
         }
     }
 }
