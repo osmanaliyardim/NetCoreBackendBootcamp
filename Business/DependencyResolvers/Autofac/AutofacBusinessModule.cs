@@ -29,7 +29,6 @@ namespace Business.DependencyResolvers.Autofac
 
             //AOP çalışmak için (validation)
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
                 .EnableInterfaceInterceptors(new ProxyGenerationOptions()
                 {
