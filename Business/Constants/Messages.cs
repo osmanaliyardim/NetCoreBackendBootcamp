@@ -16,6 +16,8 @@ namespace Business.Constants
         public static string ProductsListed = "Tüm ürünler başarıyla listelendi!";
         public static string ProductsByCategoryListed = "Seçtiğiniz kategorideki tüm ürünler başarıyla listelendi!";
 
+        public static string ProductNameAlreadyExists = "Bu ürün zaten mevcut!";
+
         //Categories
         public static string CategoryAdded = "Kategori başarıyla eklendi!";
         public static string CategoryDeteled = "Kategori başarıyla silindi!";

@@ -21,7 +21,6 @@ namespace WebAPI.Controllers
             _productService = productService;
         }
 
-        //[Authorize(Roles="product.list,admin")]
         [HttpGet("getall")]
         public IActionResult GetList()
         {

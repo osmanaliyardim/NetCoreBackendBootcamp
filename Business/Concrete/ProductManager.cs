@@ -3,15 +3,18 @@ using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Exception;
 using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.Performance;
 using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttinConcerns.Logging.Log4Net.Loggers;
 using Core.CrossCuttinConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -21,10 +24,12 @@ namespace Business.Concrete
     public class ProductManager : IProductService
     {
         private IProductDal _productDal;
+        private ICategoryService _categoryService;
 
-        public ProductManager(IProductDal productDal)
+        public ProductManager(IProductDal productDal, ICategoryService categoryService)
         {
             _productDal = productDal;
+            _categoryService = categoryService;
         }
 
         [ValidationAspects(typeof(ProductValidator), Priority = 1)]
@@ -32,6 +37,12 @@ namespace Business.Concrete
         [CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Product product)
         {
+            //Örnek iş kodları
+            IResult result = BusinessRules.Run(
+                CheckIfProductCountOfCategoryCorrect(product.CategoryId),
+                CheckIfProductNameExists(product.ProductName),
+                CheckIfCategoryLimitExceeded());
+
             _productDal.Add(product);
 
             return new SuccessResult(Messages.ProductAdded);
@@ -80,5 +91,47 @@ namespace Business.Concrete
             _productDal.Add(product);
             return new SuccessResult(Messages.ProductAdded);
         }
+
+        //Örnek iş kuralları
+        //Daha önce girilen bir ürün adı, bir daha girilemez
+        //Bir kategoriye 10'dan fazla ürün eklenemez
+        //Mevcut kategori sayısı 15'i geçtiği için yeni ürün eklenemez (uydurma)
+        #region BusinessRules--start
+        private IResult CheckIfProductNameExists(string productName)
+        {
+            if (_productDal.Get(x => x.ProductName == productName) != null)
+            {
+                return new ErrorResult(Messages.ProductNameAlreadyExists);
+            }
+
+            return new SuccessResult();
+        }
+
+
+        private IResult CheckIfProductCountOfCategoryCorrect(int id)
+        {
+            var categoriesNum = _productDal.GetList(x => x.CategoryId == id);
+
+            if (categoriesNum.Count >= 10)
+            {
+                return new ErrorResult("Bu kategoriye 10'dan fazla ürün eklenemez");
+            }
+
+            return new SuccessResult();
+        }
+
+        private IResult CheckIfCategoryLimitExceeded()
+        {
+            var totalCategoriesNum = _categoryService.GetCount();
+            //var totalCategoriesNum = _productDal.GetAll().Select(x => x.CategoryId).Distinct().Count();
+
+            if (totalCategoriesNum.Data > 15)
+            {
+                return new ErrorResult("Mevcut kategori sayısı 15'i geçtiği için yeni ürün eklenemez");
+            }
+
+            return new SuccessResult();
+        }
+        #endregion
     }
 }
