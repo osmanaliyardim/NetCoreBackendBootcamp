@@ -49,5 +49,10 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Category>>(_categoryDal.GetList().ToList(), Messages.CategoriesListed);
         }
+
+        public IDataResult<int> GetCount()
+        {
+            return new SuccessDataResult<int>(_categoryDal.GetList().Count, Messages.NumOfCategoriesListed);
+        }
     }
 }

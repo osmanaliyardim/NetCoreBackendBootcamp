@@ -34,7 +34,7 @@ namespace Business.Concrete
 
         [ValidationAspects(typeof(ProductValidator), Priority = 1)]
         //[ValidationAspects(typeof(ProductValidator), Priority = 2)]
-        [CacheRemoveAspect("IProductService.Get")]
+        //[CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Product product)
         {
             //Örnek iş kodları
@@ -67,8 +67,8 @@ namespace Business.Concrete
             return new SuccessDataResult<Product>(_productDal.Get(x=>x.ProductId == productId), Messages.ProductByIdListed);
         }
 
-        [PerformanceAspect(5)]
-        [SecuredOperation("admin,product.list")]
+        //[PerformanceAspect(5)]
+        //[SecuredOperation("admin,product.list")]
         public IDataResult<List<Product>> GetList()
         {
             //Thread.Sleep(5000); //performance test
@@ -76,14 +76,14 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Product>>(_productDal.GetList().ToList(), Messages.ProductsListed);
         }
 
-        [CacheAspect(1)]
-        [LogAspect(typeof(FileLogger))]
+        //[CacheAspect(1)]
+        //[LogAspect(typeof(FileLogger))]
         public IDataResult<List<Product>> GetListByCategory(int categoryId)
         {
             return new SuccessDataResult<List<Product>>(_productDal.GetList(x => x.CategoryId == categoryId).ToList(), Messages.ProductsByCategoryListed);
         }
 
-        [TransactionScopeAspect]
+        //[TransactionScopeAspect]
         //Sadece test için uydurma bir method
         public IResult TransactionalOperation(Product product)
         {

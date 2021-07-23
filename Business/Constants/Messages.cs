@@ -24,6 +24,7 @@ namespace Business.Constants
         public static string CategoryUpdated = "Kategori başarıyla güncellendi!";
         public static string CategoryByIdListed = "Kategori başarıyla listelendi!";
         public static string CategoriesListed = "Tüm kategoriler başarıyla listelendi!";
+        public static string NumOfCategoriesListed = "Kategori sayıları listelendi!";
 
         //Users
         public static string UserAdded = "Kullanıcı başarıyla eklendi!";

@@ -28,7 +28,8 @@ namespace WebAPI.Controllers
 
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
+                //return Ok(result.Data);
             }
 
             return BadRequest(result.Message);
@@ -41,7 +42,7 @@ namespace WebAPI.Controllers
 
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
 
             return BadRequest(result.Message);
@@ -67,10 +68,10 @@ namespace WebAPI.Controllers
 
             if (result.Success)
             {
-                return Ok(result.Message);
+                return Ok(result);
             }
 
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpPost("delete")]

@@ -17,7 +17,7 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(x => x.UnitPrice).GreaterThanOrEqualTo(1);
             
             //Örnek olması amaçlı
-            RuleFor(x => x.UnitPrice).GreaterThanOrEqualTo(10).When(x=>x.ProductId ==1);
+            RuleFor(x => x.UnitPrice).GreaterThanOrEqualTo(10).When(x=>x.ProductId == 1);
             RuleFor(x => x.ProductName).Must(StartWithA);
         }
 
